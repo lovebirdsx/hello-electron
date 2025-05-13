@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Electron Main Process",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceFolder}\\node_modules\\.bin\\electron.cmd"
+            },
+            "args": [
+                ".",
+                "--remote-debugging-port=9222"
+            ],
+            "cwd": "${workspaceFolder}",
+            "outputCapture": "std",
+            "program": "${workspaceFolder}/src/main.js",
+            "preLaunchTask": "Watch Renderer"
+        },
+        {
+            "name": "Attach to Electron Renderer Process",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}",
+            "timeout": 30000
+        }
+    ]
+}

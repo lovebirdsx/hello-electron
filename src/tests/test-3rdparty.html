@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>第三方库导入测试</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="importmap">
+            {
+                "imports": {
+                    "react": "https://cdn.skypack.dev/react@18",
+                    "react-dom": "https://cdn.skypack.dev/react-dom@18",
+                    "react-dom/client": "https://cdn.skypack.dev/react-dom@18/client"
+                }
+            }
+        </script>
+        <script type="module" src="../common.js"></script>
+        <script type="module" src="test-3rdparty.js"></script>
+    </body>
+</html>

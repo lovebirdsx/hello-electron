@@ -1,0 +1,46 @@
+{
+  "name": "hello-electron",
+  "version": "1.0.0",
+  "description": "A simple Electron application with React",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "build:renderer": "esbuild src/renderer.js --bundle --outfile=dist/bundle.js --format=esm --platform=browser --external:electron",
+    "start": "npm run build:renderer && electron .",
+    "debug": "npm run build:renderer && electron . --remote-debugging-port=9222",
+    "package": "npm run build:renderer && electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "electron": "^36.1.0",
+    "electron-builder": "^25.0.0",
+    "esbuild": "^0.23.0",
+    "nodemon": "^3.1.10"
+  },
+  "build": {
+    "appId": "com.example.helloelectron",
+    "productName": "HelloElectron",
+    "files": [
+      "src/main.js",
+      "src/index.html",
+      "dist/bundle.js",
+      "package.json",
+      "!node_modules/.cache",
+      "!**/*.map"
+    ],
+    "asar": true,
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}
