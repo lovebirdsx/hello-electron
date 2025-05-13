@@ -15,7 +15,6 @@
             ],
             "cwd": "${workspaceFolder}",
             "outputCapture": "std",
-            "program": "${workspaceFolder}/src/main.js",
             "preLaunchTask": "Watch Renderer"
         },
         {

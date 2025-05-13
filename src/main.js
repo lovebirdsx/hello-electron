@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, ipcMain } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain, protocol } from 'electron';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -40,7 +40,8 @@ function openWindow(htmlFileName, windowConfig = {}) {
     newWindow.webContents.openDevTools();
   }
 
-  newWindow.loadFile(path.join(__dirname, htmlFileName));
+  const file = path.join(__dirname, htmlFileName);
+  newWindow.loadURL('file://' + file);
   newWindow.on('close', () => {
     saveWindowState(htmlFileName, newWindow);
   });
