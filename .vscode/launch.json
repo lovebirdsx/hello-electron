@@ -24,6 +24,9 @@
                 "--remote-debugging-port=9222",
                 "--wait-for-renderer-debugger"
             ],
+            "env": {
+                "NODE_ENV": "development",
+            },
             "cwd": "${workspaceFolder}",
             "outputCapture": "std",
             "preLaunchTask": "Watch Renderer"

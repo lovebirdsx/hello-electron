@@ -7,6 +7,7 @@ import { storage } from './storage.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const shouldWaitForRendererDebugger = process.argv.includes('--wait-for-renderer-debugger');
+const isDev = process.env.NODE_ENV === 'development';
 
 const defalutWindowConfig = {
   x: 0,
@@ -34,7 +35,7 @@ async function openWindow(htmlFileName, windowConfig = {}) {
     ...windowConfig,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      // sandbox: false,
+      nodeIntegration: isDev,
     }
   });
 
@@ -42,11 +43,9 @@ async function openWindow(htmlFileName, windowConfig = {}) {
     newWindow.webContents.openDevTools();
   }
 
-  if (shouldWaitForRendererDebugger && htmlFileName === 'index.html') {
+  if (shouldWaitForRendererDebugger && htmlFileName.includes('index.html')) {
     console.log(`[Main Process] --wait-for-renderer-debugger active for ${htmlFileName}`);
     console.log(`[Main Process] Opening DevTools in detached mode and attaching internal debugger...`);
-
-    // newWindow.webContents.openDevTools({ mode: 'detach' });
 
     try {
       newWindow.webContents.debugger.attach('1.3');
