@@ -4,7 +4,19 @@
 		{
 			"label": "Watch Renderer",
 			"type": "shell",
-			"command": "npx esbuild src/renderer.js --bundle --outfile=dist/bundle.js --format=esm --platform=browser --external:electron --watch",
+			"command": "npx",
+			"args": [
+				"esbuild",
+				"src/renderer/renderer.js",
+				"--loader:.js=jsx",
+				"--bundle",
+				"--outfile=dist/renderer.js",
+				"--format=esm",
+				"--platform=browser",
+				"--external:electron",
+				"--sourcemap",
+				"--watch"
+			],
 			"isBackground": true,
 			"problemMatcher": [
 				{
@@ -18,7 +30,7 @@
 					],
 					"background": {
 						"activeOnStart": true,
-						"beginsPattern": "^\\[watch\\] build started",
+						"beginsPattern": "npx esbuild",
 						"endsPattern": "^\\[watch\\] build finished"
 					}
 				}

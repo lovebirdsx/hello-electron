@@ -1,5 +1,15 @@
 {
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Main and Renderer",
+            "configurations": [
+                "Debug Electron Main Process",
+                "Attach to Electron Renderer Process"
+            ],
+            "stopAll": true,
+        }
+    ],
     "configurations": [
         {
             "name": "Debug Electron Main Process",
@@ -11,7 +21,8 @@
             },
             "args": [
                 ".",
-                "--remote-debugging-port=9222"
+                "--remote-debugging-port=9222",
+                "--wait-for-renderer-debugger"
             ],
             "cwd": "${workspaceFolder}",
             "outputCapture": "std",
@@ -23,7 +34,7 @@
             "request": "attach",
             "port": 9222,
             "webRoot": "${workspaceFolder}",
-            "timeout": 30000
+            "timeout": 60000
         }
     ]
 }

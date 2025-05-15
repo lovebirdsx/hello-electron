@@ -2,10 +2,10 @@
   "name": "hello-electron",
   "version": "1.0.0",
   "description": "A simple Electron application with React",
-  "main": "src/main.js",
+  "main": "src/main/main.js",
   "type": "module",
   "scripts": {
-    "build:renderer": "esbuild src/renderer.js --bundle --outfile=dist/bundle.js --format=esm --platform=browser --external:electron",
+    "build:renderer": "esbuild src/renderer/renderer.js --bundle --outfile=dist/renderer.js --loader:.js=jsx --format=esm --platform=browser --external:electron --sourcemap=inline",
     "start": "npm run build:renderer && electron .",
     "debug": "npm run build:renderer && electron . --remote-debugging-port=9222",
     "package": "npm run build:renderer && electron-builder",
@@ -28,9 +28,9 @@
     "appId": "com.example.helloelectron",
     "productName": "HelloElectron",
     "files": [
-      "src/main.js",
-      "src/index.html",
-      "dist/bundle.js",
+      "src/**/*",
+      "!src/renderer/renderer.js",
+      "dist/renderer.js",
       "package.json",
       "!node_modules/.cache",
       "!**/*.map"
