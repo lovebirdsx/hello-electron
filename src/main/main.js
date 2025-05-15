@@ -63,7 +63,7 @@ async function openWindow(htmlFileName, windowConfig = {}) {
         console.log(`[Main Process] Debugger detached from ${htmlFileName}: ${reason}`);
       });
     } catch (error) {
-      console.error(`[Main Process] CRITICAL: Failed to attach or pause renderer debugger for ${htmlFileName}:`, err);
+      console.error(`[Main Process] CRITICAL: Failed to attach or pause renderer debugger for ${htmlFileName}:`, error);
       console.error('[Main Process] Ensure no other DevTools instance is already attached to this renderer, and that the DevTools protocol version is compatible.');
     }
   }
