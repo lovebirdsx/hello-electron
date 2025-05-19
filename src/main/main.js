@@ -6,7 +6,6 @@ import { storage } from './storage.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const shouldWaitForRendererDebugger = process.argv.includes('--wait-for-renderer-debugger');
 const isDev = process.env.NODE_ENV === 'development';
 
 const defalutWindowConfig = {
@@ -41,31 +40,6 @@ async function openWindow(htmlFileName, windowConfig = {}) {
 
   if (state.showDevTools) {
     newWindow.webContents.openDevTools();
-  }
-
-  if (shouldWaitForRendererDebugger && htmlFileName.includes('index.html')) {
-    console.log(`[Main Process] --wait-for-renderer-debugger active for ${htmlFileName}`);
-    console.log(`[Main Process] Opening DevTools in detached mode and attaching internal debugger...`);
-
-    try {
-      newWindow.webContents.debugger.attach('1.3');
-      console.log('[Main Process] Internal debugger attached. Enabling and pausing renderer...');
-
-      newWindow.webContents.debugger.sendCommand('Debugger.enable').catch(err => {
-        console.error(`[Main Process] CRITICAL: Failed to enable debugger for ${htmlFileName}:`, err);
-      });
-      newWindow.webContents.debugger.sendCommand('Debugger.pause').catch(err => {
-        console.error(`[Main Process] CRITICAL: Failed to pause debugger for ${htmlFileName}:`, err);
-      });
-      console.log(`[Main Process] Renderer for ${htmlFileName} is PAUSED. Attach VS Code debugger to port 9222 now.`);
-
-      newWindow.webContents.debugger.on('detach', (event, reason) => {
-        console.log(`[Main Process] Debugger detached from ${htmlFileName}: ${reason}`);
-      });
-    } catch (error) {
-      console.error(`[Main Process] CRITICAL: Failed to attach or pause renderer debugger for ${htmlFileName}:`, error);
-      console.error('[Main Process] Ensure no other DevTools instance is already attached to this renderer, and that the DevTools protocol version is compatible.');
-    }
   }
 
   const file = path.join(__dirname, htmlFileName);
